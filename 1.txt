@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<style>
+table,th,td {
+  border : 1px solid black;
+  border-collapse: collapse;
+}
+th,td {
+  padding: 5px;
+}
+</style>
+<body>
+
+<button type="button" onclick="loadXMLDoc()">Get student details</button>
+<br><br>
+<table id="demo"></table>
+
+<script>
+function loadXMLDoc() {
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function() {
+    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+      myFunction(xmlhttp);
+    }
+  };
+  xmlhttp.open("GET", "cd_catalog.xml", true);
+  xmlhttp.send();
+}
+function myFunction(xml) {
+  var i;
+  var xmlDoc = xml.responseXML;
+  var table="<tr><th>firstname</th><th>lastname</th></tr>";
+  var x = xmlDoc.getElementsByTagName("DETAILS");
+  for (i = 0; i <x.length; i++) { 
+    table += "<tr><td>" +
+    x[i].getElementsByTagName("FIRSTNAME")[0].childNodes[0].nodeValue +
+    "</td><td>" +
+    x[i].getElementsByTagName("LASTNAME")[0].childNodes[0].nodeValue +
+    "</td></td>" +
+    
+    
+    "</td></tr>" ;
+  }
+  document.getElementById("demo").innerHTML = table;
+}
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<STUDENT>
+<DETAILS>
+<FIRSTNAME>rahul</FIRSTNAME>
+<LASTNAME>dravid</LASTNAME>
+</DETAILS>
+<DETAILS>
+<FIRSTNAME>sourav</FIRSTNAME>
+<LASTNAME>ganguly</LASTNAME>
+</DETAILS>
+<DETAILS>
+<FIRSTNAME>mahendra</FIRSTNAME>
+<LASTNAME>dhoni</LASTNAME>
+</DETAILS>
+</STUDENT>
